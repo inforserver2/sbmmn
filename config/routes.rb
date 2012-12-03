@@ -2,17 +2,15 @@ SbmmnCom::Application.routes.draw do
 
 
   root :to => "home#index"
-
-  get 'signup', to: 'users#new', as: 'signup'
-  get 'login', to: 'sessions#new', as: 'login'
-  get 'logout', to: 'sessions#destroy', as: 'logout'
-
+  get "home/index"
+  get "logout" => "sessions#destroy", :as => "logout"
+  get "login" => "sessions#new", :as => "login"
+  get "signup" => "users#new", :as => "signup"
+  root :to => "home#index"
   resources :users
   resources :articles
   resources :sessions
-
-
-  get "home/index"
+  resources :password_resets
 
   # The priority is based upon order of creation:
   # first created -> highest priority.
