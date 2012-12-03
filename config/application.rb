@@ -65,6 +65,23 @@ module SbmmnCom
 
     # If you have a longer top level domain such as "example.co.uk"
     config.action_dispatch.tld_length = CFG[:tld]
+
+    # Don't care if the mailer can't send
+    config.action_mailer.raise_delivery_errors = true
+
+    # Change mail delvery to either :smtp, :sendmail, :file, :test
+    config.action_mailer.delivery_method = :smtp
+
+    config.action_mailer.smtp_settings = {
+      address: CFG[:mail]["address"],
+      port: CFG[:mail]["port"],
+      domain: CFG[:mail]["domain"],
+      authentication: CFG[:mail]["authentication"],
+      enable_starttls_auto: CFG[:mail]["tls"],
+      user_name: CFG[:mail]["user_name"],
+      password: CFG[:mail]["password"]
+    }
+
     config.action_mailer.default_url_options = { :host => CFG[:domain] }
 
 
