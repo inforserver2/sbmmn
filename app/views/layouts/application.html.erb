@@ -15,12 +15,19 @@
 
     <header id="main" >
 
+        <% if sponsor %>
+          <section id="sponsor_info">
+            <p>Name: <%= sponsor.nick.try :capitalize %></p>
+            <p>E-mail: <%= sponsor.email1.try :downcase %></p>
+            <p>Site: <%= link_to root_url(subdomain: sponsor.subdomain), root_url(subdomain: sponsor.subdomain) %></p>
+          </section>
+        <% end %>
 
       <section id="auth_area">
         <%= link_to "Home", root_path %> |
         <%= link_to "Articles", articles_path %> |
         <% if current_user %>
-          Logged in as <%= current_user.email %>.
+          Logged in as <%= current_user.email1 %>.
           <%= link_to "Log Out", logout_path %>
         <% else %>
           <%= link_to "Sign Up", signup_path %> or
@@ -52,9 +59,12 @@
   </div>
 
 <div id="debug">
-  <%#= debug sponsor if Rails.env=="development" %>
+  <%= debug sponsor if Rails.env=="development" %>
+  <hr/>
   <%= debug session if Rails.env=="development" %>
+  <hr/>
   <%= debug flash if Rails.env=="development" %>
+  <hr/>
   <%= debug cookies if Rails.env=="development" %>
 </div>
 

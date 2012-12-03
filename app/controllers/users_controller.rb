@@ -5,6 +5,7 @@ class UsersController < ApplicationController
 
   def create
     @user = User.new(params[:user].permit!)
+    @user.sponsor_id = sponsor.id
     if @user.save
       session[:user_id] = @user.id
       cookies[:auth_token] = @user.auth_token

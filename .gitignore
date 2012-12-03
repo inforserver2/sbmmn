@@ -7,6 +7,8 @@
 .*.sw?
 .swp
 .swo
+.swm
+.swn
 
 /config/myapp.yml
 /config/database.yml
