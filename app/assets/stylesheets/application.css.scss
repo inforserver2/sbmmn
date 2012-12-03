@@ -20,6 +20,13 @@ header#main{
   border-bottom: 1px solid gray;
 }
 
+section#message div{
+  padding: 5px;
+  text-align: center;
+  border: 1px dotted black;
+  margin: 5px 0;
+}
+
 section#main{
   margin: 10px 0;
   min-height: 300px;
@@ -28,8 +35,6 @@ section#main{
 section#auth_area{
   float: right;
 }
-
-
 
 footer#main{
   height: 100px;

@@ -14,7 +14,11 @@
   <div id="container">
 
     <header id="main" >
+
+
       <section id="auth_area">
+        <%= link_to "Home", root_path %> |
+        <%= link_to "Articles", articles_path %> |
         <% if current_user %>
           Logged in as <%= current_user.email %>.
           <%= link_to "Log Out", logout_path %>
@@ -23,9 +27,17 @@
           <%= link_to "Log In", login_path %>
         <% end %>
       </section>
+
     </header>
 
     <section id="main">
+
+      <section id="message">
+        <% flash.each do |key, msg| %>
+          <%= content_tag :div, msg, :id => key %>
+        <% end %>
+      </section>
+
 
       <section id="content">
         <%= yield %>
