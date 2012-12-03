@@ -36,4 +36,10 @@ footer#main{
   border-top: 1px solid gray;
 }
 
-
+div#debug{
+  margin: 10px;
+  .debug_dump{
+    font-size: 6px;
+    line-height: 11px;
+  }
+}
