@@ -1,0 +1,12 @@
+development:
+  domain: "sbmmn.com"
+  tld: 1
+  db:
+    username: "root"
+    password: "vtr512"
+
+  info:
+    name1: "xxx"
+    name2: 1234
+    name3:
+      ok: "ok"

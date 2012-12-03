@@ -9,6 +9,10 @@ if defined?(Bundler)
   # Bundler.require(:default, :assets, Rails.env)
 end
 
+CFG = YAML.load(File.read(File.expand_path('../myapp.yml', __FILE__)))
+CFG.merge! CFG.fetch(Rails.env, {})
+CFG.symbolize_keys!
+
 module SbmmnCom
   class Application < Rails::Application
     # Settings in config/environments/* take precedence over those specified here.
@@ -58,5 +62,11 @@ module SbmmnCom
 
     # Version of your assets, change this if you want to expire all your assets
     config.assets.version = '1.0'
+
+    # If you have a longer top level domain such as "example.co.uk"
+    config.action_dispatch.tld_length = CFG[:tld]
+    config.action_mailer.default_url_options = { :host => CFG[:domain] }
+
+
   end
 end
