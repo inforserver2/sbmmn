@@ -29,8 +29,10 @@ class ApplicationController < ActionController::Base
       redirect_to site.url
     else
       unless session[:visit]
-#      sponsor.visit_counter.inc
-      session[:visit]=true
+      sponsor.visit_counter.inc
+      session[:visit]={}
+      session[:visit][:sponsor_id] = 1
+      session[:visit][:redir_from] = params[:redir_from] if params[:redir_from].presence
       end
     end
   end

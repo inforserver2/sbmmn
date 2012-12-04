@@ -20,6 +20,8 @@
             <p>Name: <%= sponsor.nick.try :capitalize %></p>
             <p>E-mail: <%= sponsor.email1.try :downcase %></p>
             <p>Site: <%= link_to root_url(subdomain: sponsor.subdomain), root_url(subdomain: sponsor.subdomain) %></p>
+            <p>Visits this site: <%= sponsor.visit_counter.try :count %></p>
+            <p>Visits networking: <%= VisitCounter.total %></p>
           </section>
         <% end %>
 

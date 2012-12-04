@@ -1,17 +1,18 @@
 class User < ActiveRecord::Base
   has_secure_password
 
+  attr_accessor :profile_redir_from
+
+  has_one :profile, dependent: :destroy
+  has_one :visit_counter, dependent: :destroy
 
   has_many :sponsored, :class_name => "User",
     :foreign_key => "sponsor_id"
   belongs_to :sponsor, :class_name => "User"
 
-
   validates_uniqueness_of :email1
   validates :nick, :subdomain, presence: true
 
-
-  before_create { generate_token(:auth_token) }
 
   def send_password_reset
     generate_token(:password_reset_token)

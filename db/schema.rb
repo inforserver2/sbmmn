@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20121203170525) do
+ActiveRecord::Schema.define(:version => 20121204121030) do
 
   create_table "articles", :force => true do |t|
     t.string   "title"
@@ -19,6 +19,15 @@ ActiveRecord::Schema.define(:version => 20121203170525) do
     t.datetime "created_at", :null => false
     t.datetime "updated_at", :null => false
   end
+
+  create_table "profiles", :force => true do |t|
+    t.string   "redir_from"
+    t.integer  "user_id",    :null => false
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
+  end
+
+  add_index "profiles", ["user_id"], :name => "index_profiles_on_user_id"
 
   create_table "users", :force => true do |t|
     t.string   "email1",                 :null => false
@@ -34,5 +43,14 @@ ActiveRecord::Schema.define(:version => 20121203170525) do
     t.string   "password_reset_token"
     t.datetime "password_reset_sent_at"
   end
+
+  create_table "visit_counters", :force => true do |t|
+    t.integer  "count",      :default => 0, :null => false
+    t.integer  "user_id"
+    t.datetime "created_at",                :null => false
+    t.datetime "updated_at",                :null => false
+  end
+
+  add_index "visit_counters", ["user_id"], :name => "index_visit_counters_on_user_id"
 
 end
