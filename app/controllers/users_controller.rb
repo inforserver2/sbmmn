@@ -8,9 +8,10 @@ class UsersController < ApplicationController
     @user.sponsor_id = sponsor.id
     @user.profile_redir_from = session[:visit][:redir_from] || nil
     if @user.save
-      session[:user_id] = @user.id
       cookies[:auth_token] = @user.auth_token
-      redirect_to root_url, notice: "Thank you for signing up!"
+      mys_setup @user do
+        redirect_to root_url, notice: "Thank you for signing up!"
+      end
     else
       render "new"
     end
