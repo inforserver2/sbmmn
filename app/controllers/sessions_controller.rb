@@ -2,7 +2,8 @@ class SessionsController < ApplicationController
   def new
   end
   def create
-    user = User.find_by_email1(params[:email1])
+    filter=EmailOrSite.new params[:email1], request.protocol
+    user = User.where("#{filter.type}=?", filter.to_s).first
     if user && user.authenticate(params[:password])
       if params[:remember_me]
         cookies.permanent[:auth_token] = user.auth_token

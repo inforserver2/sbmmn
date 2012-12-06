@@ -1,6 +1,8 @@
 SbmmnCom::Application.routes.draw do
 
 
+  get "message/index"
+
   root :to => "home#index"
   get "home/index"
   get "logout" => "sessions#destroy", :as => "logout"
