@@ -1,6 +1,5 @@
 SbmmnCom::Application.routes.draw do
 
-
   get "message/index"
 
   root :to => "home#index"
@@ -13,6 +12,19 @@ SbmmnCom::Application.routes.draw do
   resources :articles
   resources :sessions
   resources :password_resets
+
+
+  namespace :admin do
+    root :to => "welcome#index"
+    get "welcome/index"
+  end
+
+  namespace :office do
+    root :to => "welcome#index"
+    get "welcome/index"
+  end
+
+
 
   # The priority is based upon order of creation:
   # first created -> highest priority.

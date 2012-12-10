@@ -1,7 +1,9 @@
+#encoding: UTF-8
 class ApplicationController < ActionController::Base
   protect_from_forgery
 
-  before_filter :uri
+  before_filter :uri, :session_expires
+
 
   private
 
@@ -18,7 +20,7 @@ class ApplicationController < ActionController::Base
   helper_method :current_user, :master_user
 
   def authorize
-    redirect_to login_url, alert: "Not authorized" if current_user.nil?
+    redirect_to login_url, alert: "Not authorized" unless is_logged?
   end
 
   def sponsor
@@ -41,7 +43,6 @@ class ApplicationController < ActionController::Base
   end
 
 
-
   # helpers to manage logged user
     def mys_setup current, &block
       user={id:current.id, token:current.auth_token}
@@ -51,6 +52,7 @@ class ApplicationController < ActionController::Base
     end
 
     def mys_clear &block
+      cookies.delete(:auth_token)
       session[:logged]=nil
       block.call
     end
@@ -65,6 +67,16 @@ class ApplicationController < ActionController::Base
     end
   #
 
+  def session_expires
+    if is_logged?
+      @timer=(Time.now - session[:logged][:timer]) / 60
+      if @timer > 15
+        mys_clear { redirect_to login_path, :notice => "Sessão expirou!" }
+      else
+        session[:logged][:timer]=Time.now
+      end
+    end
+  end
 
 
 end

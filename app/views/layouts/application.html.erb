@@ -54,7 +54,43 @@
     </section>
 
 
+
+
+
+
     <footer id="main">
+
+      <nav id="site">
+        <header>
+          <h1>Site Links</h1>
+        </header>
+        <ul>
+          <li><%= link_to "Home", root_path %></li>
+          <li><%= link_to "Articles", articles_path %></li>
+          <li><%= link_to "Sign Up", signup_path %></li>
+          <li><%= link_to "Log In", login_path %></li>
+          <li><%= link_to "Log Out", logout_path %></li>
+        </ul>
+      </nav>
+
+      <nav id="office">
+        <header>
+          <h1>Office Links</h1>
+        </header>
+        <ul>
+          <li><%= link_to "Home", office_root_path %></li>
+        </ul>
+      </nav>
+
+      <nav id="admin">
+        <header>
+          <h1>Admin Links</h1>
+        </header>
+        <ul>
+          <li><%= link_to "Home", admin_root_path %></li>
+        </ul>
+      </nav>
+
 
     </footer>
 
@@ -68,6 +104,8 @@
   <%= debug flash if Rails.env=="development" %>
   <hr/>
   <%= debug cookies if Rails.env=="development" %>
+  <hr/>
+  <%= @timer %>
 </div>
 
 </body>
