@@ -1,23 +1,37 @@
-<h1>Log In</h1>
+<% unless is_logged? %>
+  <section id="login_form">
+    <header>
+      <h1>Log In</h1>
+    </header>
+    <%= form_tag sessions_path do %>
+      <div class="field">
+        <%= label_tag "Email principal ou site:" %><br />
+        <%= text_field_tag :email1, params[:email1] %>
+      </div>
+      <div class="field">
+        <%= label_tag :password %><br />
+        <%= password_field_tag :password %>
+      </div>
 
-<%= form_tag sessions_path do %>
-  <div class="field">
-    <%= label_tag "Email principal ou site:" %><br />
-    <%= text_field_tag :email1, params[:email1] %>
-  </div>
-  <div class="field">
-    <%= label_tag :password %><br />
-    <%= password_field_tag :password %>
-  </div>
+      <div class="field">
+        <%= check_box_tag :remember_me, 1, params[:remember_me] %>
+        <%= label_tag :remember_me %>
+      </div>
 
-  <div class="field">
-    <%= check_box_tag :remember_me, 1, params[:remember_me] %>
-    <%= label_tag :remember_me %>
-  </div>
+      <div class="actions"><%= submit_tag "Log In" %></div>
 
-  <div class="actions"><%= submit_tag "Log In" %></div>
-
-<p><%= link_to "forgotten password?", new_password_reset_path %></p>
-
-
+    <p><%= link_to "forgotten password?", new_password_reset_path %></p>
+    <% end %>
+  </section>
+  <% else %>
+    <section id="logged_info">
+      <header>
+        <h1>Usuário Logado</h1>
+      </header>
+      <p>User: <span><%= current_user.subdomain %></span></p>
+      <% if true #is_sublogged? %>
+        <p>Sublogado como: <span><%= current_master.subdomain %></span></p>
+        <%= link_to "relog", reset_session_path(current_master.id) %>
+      <% end %>
+    </section>
 <% end %>

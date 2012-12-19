@@ -12,12 +12,12 @@ class ApplicationController < ActionController::Base
     @current_user ||= User.find_by_auth_token!(session[:logged][:user][:token])
   end
 
-  def master_user
+  def current_master
     return current_user unless is_sublogged?
-    @master_user ||= User.find_by_auth_token!(session[:logged][:master][:token])
+    @current_master ||= User.find_by_auth_token!(session[:logged][:master][:token])
   end
 
-  helper_method :current_user, :master_user
+  helper_method :current_user, :current_master
 
   def authorize
     redirect_to login_url, alert: "Not authorized" unless is_logged?
@@ -47,7 +47,7 @@ class ApplicationController < ActionController::Base
     def mys_setup current, &block
       user={id:current.id, token:current.auth_token}
       timer=Time.now
-      session[:logged]={user: user, master: user, timer: timer}
+      session[:logged]={user: user, master: user.dup, timer: timer}
       block.call
     end
 
@@ -63,8 +63,9 @@ class ApplicationController < ActionController::Base
 
     def is_sublogged?
       return false unless is_logged?
-      session[:logged][:user] == session[:logged][:master]
+      session[:logged][:user] != session[:logged][:master]
     end
+    helper_method :is_logged?, :is_sublogged?
   #
 
   def session_expires

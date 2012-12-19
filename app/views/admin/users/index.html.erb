@@ -1,0 +1,19 @@
+<h1>Users</h1>
+<table>
+  <tr>
+    <td>Id</td>
+    <td>Nick</td>
+    <td>Subdomínio</td>
+    <td>Ações</td>
+  </tr>
+  <% @users.each do |user| %>
+    <tr>
+      <td><%= user.id %></td>
+      <td><%= user.nick %></td>
+      <td><%= user.subdomain %></td>
+      <td>
+        <%= link_to "Switch", switch_path(id:user.id, token:user.auth_token) %>
+      </td>
+    </tr>
+  <% end %>
+</table>

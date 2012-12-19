@@ -4,19 +4,27 @@ SbmmnCom::Application.routes.draw do
 
   root :to => "home#index"
   get "home/index"
+
   get "logout" => "sessions#destroy", :as => "logout"
   get "login" => "sessions#new", :as => "login"
   get "signup" => "users#new", :as => "signup"
+  get "switch/:id/:token" => "sessions#switch", :as => "switch"
+
   root :to => "home#index"
   resources :users
+  resources :sessions do
+    get "reset", on: :member
+  end
   resources :articles
-  resources :sessions
+
+
   resources :password_resets
 
 
   namespace :admin do
     root :to => "welcome#index"
     get "welcome/index"
+    resources :users
   end
 
   namespace :office do
